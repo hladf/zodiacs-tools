@@ -1,10 +1,22 @@
-import fs from 'fs';
+import fs from "fs";
 
 const tempLog = [];
 
+export function isValidJson(data) {
+  return !!/^[\],:{}\s]*$/.test(
+    data
+      .replace(/\\["\\\/bfnrtu]/g, "@")
+      .replace(
+        /"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g,
+        "]"
+      )
+      .replace(/(?:^|:|,)(?:\s*\[)+/g, "")
+  );
+}
+
 /** Data must be a JSON */
 export function writeDataToFile(data, path) {
-  if (!data || !path) {
+  if (!data || !path || !isValidJson(data)) {
     return;
   }
   let json = JSON.stringify(data, undefined, 2);
@@ -27,10 +39,10 @@ export function readFileData(path) {
 
 export function registerLog({ message, title }) {
   const timestamp = new Date().toLocaleString().substring(0, 16);
-  const date = timestamp.substring(0, 10).replace(/\//g, '-');
+  const date = timestamp.substring(0, 10).replace(/\//g, "-");
   const logText = `${timestamp} => ${title} ### ${message};\n`;
   if (
-    message.includes('Nao ha acoes para serem feitas') &&
+    message.includes("Nao ha acoes para serem feitas") &&
     tempLog.reverse()?.[0]?.includes(message)
   ) {
     return;

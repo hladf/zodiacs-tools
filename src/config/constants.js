@@ -1,4 +1,4 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 const TOKEN = process.env.TOKEN;
@@ -9,6 +9,8 @@ const SESSION_TOKEN = process.env.SESSION_TOKEN;
 const RACE_DURATION = process.env.RACE_DURATION;
 const TEST_MODE = false;
 
+const BASE_URL = "https://8za04rmw3eb0.grandmoralis.com:2053/server/functions";
+
 export default {
   TOKEN,
   CARS_IDS,
@@ -17,4 +19,5 @@ export default {
   SESSION_TOKEN,
   RACE_DURATION,
   TEST_MODE,
+  BASE_URL,
 };
