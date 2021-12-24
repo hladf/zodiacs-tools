@@ -35,7 +35,7 @@ export async function runRaceAutomation() {
         const message = `O carro "${carId}" atingiu o numero maximo de corridas (12).`;
         registerLog({ message, title: 'Race Automation' });
         console.log(message.red.bold);
-        await waitSeconds(2);
+        await waitSeconds(5);
         continue;
       }
 
@@ -63,7 +63,7 @@ export async function runRaceAutomation() {
       });
       console.log(msgClaimSuccess.green.bold);
 
-      await waitSeconds(1);
+      await waitSeconds(3);
     } catch (error) {
       const messageError = `Houve um erro ao executar uma acao para o carro ${carId}. Erro: ${
         error.message || error
