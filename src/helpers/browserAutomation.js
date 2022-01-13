@@ -54,9 +54,15 @@ function runCarSelection(callback) {
     const carRacingCount = document.querySelector(
       "#root > section > section > div > div > div > div > div.selected.content.mb-1.text-center.p-3.shadowed > div > div:nth-child(5)"
     ).innerText;
+    const carExpired = document
+      .querySelector(
+        "#root > section > section > div > div > div > div > div.selected.content.mb-1.text-center.p-3.shadowed > div > div.text-center.text-red > div"
+      )
+      ?.innerText?.includes("Expired");
 
     console.log(`racing count do carro ${carIndex + 1} -> ${carRacingCount}`);
     if (
+      !carExpired &&
       String(carRacingCount).includes("/10") &&
       !String(carRacingCount).includes("10/10")
     ) {
