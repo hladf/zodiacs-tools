@@ -5,13 +5,17 @@ import { getRequestOptions, isTestMode } from "../helpers/http.js";
 export async function getUserData() {
   isTestMode();
 
-  const url = `${config.BASE_URL}/getUserData`;
+  const url = `${config.BASE_URL}/user_getData`;
 
   const options = getRequestOptions();
 
-  return fetch(url, options).then(async (res) => {
-    return res.json();
-  });
+  return fetch(url, options)
+    .then(async (res) => {
+      console.log("\n\n res 👉", { res }, "\n");
+
+      return { status: res.status, data: await res.json() };
+    })
+    .catch((error) => console.log({ error }));
 }
 export async function startRace(carId) {
   isTestMode();
@@ -20,9 +24,11 @@ export async function startRace(carId) {
 
   let options = getRequestOptions(carId);
 
-  return fetch(url, options).then(async (res) => {
-    return res.json();
-  });
+  return fetch(url, options)
+    .then(async (res) => {
+      return { data: await res.json(), status: res.status };
+    })
+    .catch((error) => console.log({ error }));
 }
 
 export async function claimReward(carId) {
@@ -32,5 +38,9 @@ export async function claimReward(carId) {
 
   let options = getRequestOptions(carId);
 
-  return fetch(url, options).then((res) => res.json());
+  return fetch(url, options)
+    .then(async (res) => {
+      return { data: await res.json(), status: res.status };
+    })
+    .catch((error) => console.log({ error }));
 }
