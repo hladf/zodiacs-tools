@@ -38,9 +38,10 @@ function tryCheckRes() {
 
 function runCarSelection(callback) {
   console.log("tentando selecionar primeiro carro...");
-  const carList = document.querySelector(
-    `#root > section > section > div > div > div > div > div:nth-child(2) > div.ant-card.ant-card-bordered.car-list.border-0 > div`
-  ).childElementCount;
+  const carList =
+    document.querySelector(
+      `#root > section > section > div > div > div > div > div:nth-child(2) > div.ant-card.ant-card-bordered.car-list.border-0 > div`
+    )?.childElementCount || 0;
 
   for (let carIndex = 0; carIndex < carList; carIndex++) {
     const selectCar = (index) =>
@@ -53,7 +54,7 @@ function runCarSelection(callback) {
 
     const carRacingCount = document.querySelector(
       "#root > section > section > div > div > div > div > div.selected.content.mb-1.text-center.p-3.shadowed > div > div:nth-child(5)"
-    ).innerText;
+    )?.innerText;
 
     console.log(`racing count do carro ${carIndex + 1} -> ${carRacingCount}`);
     if (
