@@ -83,17 +83,17 @@ function runCarSelection(callback) {
   // );
 }
 
-function runAll(duration = 60) {
-  const interval = setInterval(() => {
+function runAll(duration = 60, interval = 5) {
+  const intervalId = setInterval(() => {
     console.log("buscando botoes...");
     tryCheckRes();
     tryClaim();
     runCarSelection(tryStartRace);
     // tryStartRace();
-  }, 3000);
+  }, interval * 1000);
 
   setTimeout(() => {
-    clearInterval(interval);
+    clearInterval(intervalId);
     console.log("encerrando loop...");
   }, duration * 1000);
 }
