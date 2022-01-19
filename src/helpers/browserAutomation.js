@@ -66,7 +66,7 @@ function runCarSelection(callback) {
       String(carRacingCount).includes("/10") &&
       !String(carRacingCount).includes("10/10")
     ) {
-      console.log("\n ✅ Clicando no carro ", carIndex, "\n");
+      console.log("\n ✅ Clicando no carro ", carIndex + 1, "\n");
       break;
     } else {
       selectCar(carIndex + 1)?.click();
