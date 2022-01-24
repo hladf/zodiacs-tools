@@ -16,7 +16,7 @@ function tryClaim() {
 
 function tryStartRace() {
   const startRaceBtn = document.querySelector(
-    "#root > section > section > div > div > div > div > div.selected.content.mb-1.text-center.p-3.shadowed > div > div.mt-3 > div"
+    "#root > section > section > div > div > div > div > div.selected.content.mb-1.text-center.p-3.shadowed > div > div.mt-3 > div.custom-btn.btn-green"
   );
   if (String(startRaceBtn?.innerText).toUpperCase().includes("START RACE")) {
     console.log("encontrado botao de START RACE");
@@ -53,15 +53,21 @@ function runCarSelection(callback) {
     selectCar(carIndex)?.click();
 
     const carRacingCount = document.querySelector(
-      "#root > section > section > div > div > div > div > div.selected.content.mb-1.text-center.p-3.shadowed > div > div:nth-child(5)"
-    )?.innerText;
+      "#root > section > section > div > div > div > div > div.selected.content.mb-1.text-center.p-3.shadowed > div > div.d-flex.d-row > div:nth-child(2) > div:nth-child(4)"
+    ).innerText;
+    const carExpired = document
+      .querySelector(
+        "#root > section > section > div > div > div > div > div.selected.content.mb-1.text-center.p-3.shadowed > div > div.text-center.text-red > div"
+      )
+      ?.innerText?.includes("Expired");
 
     console.log(`racing count do carro ${carIndex + 1} -> ${carRacingCount}`);
     if (
+      !carExpired &&
       String(carRacingCount).includes("/10") &&
       !String(carRacingCount).includes("10/10")
     ) {
-      console.log("\n ✅ Clicando no carro ", carIndex, "\n");
+      console.log("\n ✅ Clicando no carro ", carIndex + 1, "\n");
       break;
     } else {
       selectCar(carIndex + 1)?.click();
@@ -72,24 +78,20 @@ function runCarSelection(callback) {
     }
   }
   callback && callback();
-
-  // const claimBtn = document.querySelector(
-  //   "body > div:nth-child(8) > div > div.ant-modal-wrap.ant-modal-confirm-centered.ant-modal-centered > div > div.ant-modal-content > div > div > div.ant-modal-confirm-btns > button"
-  // );
 }
 
-function runAll(duration = 60) {
-  const interval = setInterval(() => {
+function runAll(duration = 60, interval = 5) {
+  const intervalId = setInterval(() => {
     console.log("buscando botoes...");
     tryCheckRes();
     tryClaim();
     runCarSelection(tryStartRace);
     // tryStartRace();
-  }, 3000);
+  }, interval * 1000);
 
   setTimeout(() => {
-    clearInterval(interval);
+    clearInterval(intervalId);
     console.log("encerrando loop...");
   }, duration * 1000);
 }
-runAll(120);
+runAll(360);
